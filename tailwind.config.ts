@@ -10,13 +10,16 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        body: ["'DM Sans'", 'sans-serif'],
+        headline: ["'Bebas Neue'", 'sans-serif'],
+        subheading: ["'Syne'", 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        black: 'hsl(var(--black))',
+        dark: 'hsl(var(--dark))',
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
@@ -44,6 +47,13 @@ export default {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+        },
+        orange: {
+          DEFAULT: 'hsl(var(--orange))',
+          light: 'hsl(var(--orange-light))',
+        },
+        magenta: {
+          DEFAULT: 'hsl(var(--magenta-red))',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
