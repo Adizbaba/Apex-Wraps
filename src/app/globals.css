@@ -54,12 +54,46 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased;
+    @apply bg-background text-foreground font-body antialiased overflow-x-hidden;
   }
 }
 
 @layer utilities {
   .chamfer-clip {
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .grid-background {
+    background-image: 
+      linear-gradient(to right, rgba(255, 77, 0, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 77, 0, 0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .animate-grid {
+    animation: grid-move 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes grid-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 80px 80px; }
+  }
+
+  @keyframes pulse-orange {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  .animate-pulse-orange {
+    animation: pulse-orange 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }

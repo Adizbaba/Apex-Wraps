@@ -1,22 +1,21 @@
-import { SectionLabel } from "@/components/ui/section-label";
-import { Button } from "@/components/ui/button";
+import { Navbar } from "@/components/navbar";
+import { Hero } from "@/components/hero";
+import { Ticker } from "@/components/ticker";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-background">
-      <div className="max-w-4xl w-full flex flex-col items-start gap-8">
-        <SectionLabel>Apex Wraps Branding</SectionLabel>
-        <h1 className="text-6xl md:text-8xl font-headline text-white leading-tight">
-          Precision <span className="text-orange">Aesthetic</span>
-        </h1>
-        <p className="font-subheading text-xl md:text-2xl text-white/80 font-bold">
-          High-performance automotive transformations.
-        </p>
-        <div className="flex flex-wrap gap-4 mt-8">
-          <Button variant="primary">Explore Portfolio</Button>
-          <Button variant="outline">Request A Quote</Button>
+    <main className="flex min-h-screen flex-col bg-background">
+      <Navbar />
+      <Hero />
+      <Ticker />
+      
+      {/* Placeholder sections for scrolling demo */}
+      <section className="h-screen flex items-center justify-center border-t border-white/5">
+        <div className="text-center">
+          <h2 className="text-4xl font-headline text-white mb-4">Our Services</h2>
+          <p className="text-muted-foreground">Scroll more to see the transitions.</p>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
