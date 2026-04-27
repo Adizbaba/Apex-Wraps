@@ -4,9 +4,27 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Menu } from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
+const navLinks = [
+  { name: 'About', href: '#about' },
+  { name: 'Services', href: '#services' },
+  { name: 'Portfolio', href: '#portfolio' },
+  { name: 'Fleet', href: '#fleet' },
+  { name: 'Blog', href: '#blog' },
+  { name: 'Contact', href: '#contact' },
+];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,23 +56,74 @@ export function Navbar() {
           </div>
         </Link>
 
-        {/* Links */}
+        {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
-          {['About', 'Services', 'Portfolio', 'Fleet', 'Blog', 'Contact'].map((item) => (
+          {navLinks.map((item) => (
             <Link
-              key={item}
-              href={`#${item.toLowerCase()}`}
+              key={item.name}
+              href={item.href}
               className="text-sm font-bold uppercase tracking-widest text-white/70 hover:text-orange transition-colors"
             >
-              {item}
+              {item.name}
             </Link>
           ))}
         </div>
 
-        {/* Action */}
-        <Button variant="primary" className="rounded-full px-8 hidden sm:flex">
-          Get a Quote
-        </Button>
+        {/* Action Button & Mobile Menu */}
+        <div className="flex items-center gap-4">
+          <Button variant="primary" className="rounded-full px-8 hidden sm:flex">
+            Get a Quote
+          </Button>
+
+          {/* Mobile Burger Menu */}
+          <div className="md:hidden">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-orange transition-colors">
+                  <Menu className="w-8 h-8" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="bg-background border-l border-white/5 p-8 flex flex-col">
+                <SheetHeader className="mb-12 text-left">
+                  <SheetTitle>
+                    <div className="flex items-center gap-3">
+                      <div className="relative w-8 h-8">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-orange">
+                          <path d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" />
+                          <text x="50" y="62" textAnchor="middle" fill="black" fontSize="28" fontWeight="900" fontFamily="sans-serif">AW</text>
+                        </svg>
+                      </div>
+                      <div className="flex flex-col leading-none font-headline tracking-tighter text-left">
+                        <span className="text-lg text-white">APEX</span>
+                        <span className="text-lg text-orange">WRAPS</span>
+                      </div>
+                    </div>
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col gap-6">
+                  {navLinks.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-xl font-headline uppercase tracking-widest text-white/70 hover:text-orange transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                  <div className="mt-8 pt-8 border-t border-white/5">
+                    <Button variant="primary" className="w-full" onClick={() => {
+                      setIsOpen(false);
+                      document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+                    }}>
+                      Get a Quote
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
       </div>
     </nav>
   );
