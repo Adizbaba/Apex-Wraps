@@ -47,6 +47,24 @@
       "description": "Mercedes Transit - Brushed Chrome",
       "imageUrl": "https://picsum.photos/seed/19/800/800",
       "imageHint": "van wrap chrome"
+    },
+    {
+      "id": "blog-1",
+      "description": "Vehicle Wrap Trends 2025",
+      "imageUrl": "https://picsum.photos/seed/20/800/500",
+      "imageHint": "car wrap design trends"
+    },
+    {
+      "id": "blog-2",
+      "description": "Fleet Branding Marketing ROI",
+      "imageUrl": "https://picsum.photos/seed/21/800/500",
+      "imageHint": "commercial vehicle wrap"
+    },
+    {
+      "id": "blog-3",
+      "description": "PPF vs Vinyl Wrap Comparison",
+      "imageUrl": "https://picsum.photos/seed/22/800/500",
+      "imageHint": "paint protection film installation"
     }
   ]
 }
