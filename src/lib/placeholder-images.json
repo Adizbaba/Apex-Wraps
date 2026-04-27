@@ -65,6 +65,30 @@
       "description": "PPF vs Vinyl Wrap Comparison",
       "imageUrl": "https://picsum.photos/seed/22/800/500",
       "imageHint": "paint protection film installation"
+    },
+    {
+      "id": "slider-1-before",
+      "description": "Stock gray sports car before wrap",
+      "imageUrl": "https://picsum.photos/seed/23/1200/800",
+      "imageHint": "gray car before"
+    },
+    {
+      "id": "slider-1-after",
+      "description": "Vibrant red wrap sports car after",
+      "imageUrl": "https://picsum.photos/seed/24/1200/800",
+      "imageHint": "red car after"
+    },
+    {
+      "id": "slider-2-before",
+      "description": "Plain white commercial van before branding",
+      "imageUrl": "https://picsum.photos/seed/25/1200/800",
+      "imageHint": "white van before"
+    },
+    {
+      "id": "slider-2-after",
+      "description": "Fully branded commercial van after wrap",
+      "imageUrl": "https://picsum.photos/seed/26/1200/800",
+      "imageHint": "branded van after"
     }
   ]
 }

@@ -9,6 +9,11 @@ import { Process } from "@/components/process";
 import { Fleet } from "@/components/fleet";
 import { Testimonials } from "@/components/testimonials";
 import { Blog } from "@/components/blog";
+import { BeforeAfterSlider } from "@/components/before-after-slider";
+import { QuoteCalculator } from "@/components/quote-calculator";
+import { ContactSection } from "@/components/contact-section";
+import { Footer } from "@/components/footer";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 
 export default function Home() {
   return (
@@ -18,11 +23,16 @@ export default function Home() {
       <Ticker />
       <About />
       <Portfolio />
+      <BeforeAfterSlider />
       <Services />
+      <QuoteCalculator />
       <Process />
       <Fleet />
       <Testimonials />
       <Blog />
+      <ContactSection />
+      <Footer />
+      <WhatsAppButton />
     </main>
   );
 }

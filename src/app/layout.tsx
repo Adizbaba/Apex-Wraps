@@ -1,9 +1,27 @@
-import type {Metadata} from 'next';
+
+import type { Metadata } from 'next';
 import './globals.css';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Apex Wraps | Premium Car Customization',
-  description: 'Apex Wraps provides world-class car wrapping and automotive customization services.',
+  title: 'Apex Wraps | Premium Car Customization Houston',
+  description: 'Apex Wraps provides world-class car wrapping, PPF, and commercial fleet branding in Houston, TX. Precision installation with 5-year warranty.',
+  openGraph: {
+    title: 'Apex Wraps | Premium Vehicle Wrapping Studio',
+    description: 'Transform your ride with precision installation and top-tier materials.',
+    url: 'https://apex-wraps.com',
+    siteName: 'Apex Wraps',
+    images: [
+      {
+        url: 'https://picsum.photos/seed/1/1200/630',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
@@ -12,14 +30,57 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Apex Wraps",
+              "image": "https://picsum.photos/seed/1/800/600",
+              "@id": "",
+              "url": "https://apex-wraps.com",
+              "telephone": "+17135550192",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "123 Precision Dr",
+                "addressLocality": "Houston",
+                "addressRegion": "TX",
+                "postalCode": "77002",
+                "addressCountry": "US"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 29.7604,
+                "longitude": -95.3698
+              },
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"
+                ],
+                "opens": "08:00",
+                "closes": "18:00"
+              }
+            })
+          }}
+        />
       </head>
       <body className="font-body min-h-screen bg-background">
-        {children}
+        <FirebaseClientProvider>
+          {children}
+          <Toaster />
+        </FirebaseClientProvider>
       </body>
     </html>
   );
