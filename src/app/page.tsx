@@ -1,6 +1,10 @@
+
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { Ticker } from "@/components/ticker";
+import { About } from "@/components/about";
+import { Portfolio } from "@/components/portfolio";
+import { Services } from "@/components/services";
 
 export default function Home() {
   return (
@@ -8,14 +12,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Ticker />
-      
-      {/* Placeholder sections for scrolling demo */}
-      <section className="h-screen flex items-center justify-center border-t border-white/5">
-        <div className="text-center">
-          <h2 className="text-4xl font-headline text-white mb-4">Our Services</h2>
-          <p className="text-muted-foreground">Scroll more to see the transitions.</p>
-        </div>
-      </section>
+      <About />
+      <Portfolio />
+      <Services />
     </main>
   );
 }
