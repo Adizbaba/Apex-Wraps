@@ -1,0 +1,449 @@
+{
+  "entities": {
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a car wrapping or customization project completed by Apex Wraps, showcasing its details, images, and associated services.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Project entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The name or title of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the project, including challenges, solutions, and client brief."
+        },
+        "mainImageUrl": {
+          "type": "string",
+          "description": "URL of the primary image representing the completed project.",
+          "format": "uri"
+        },
+        "galleryImageUrls": {
+          "type": "array",
+          "description": "An array of URLs for additional images showcasing different angles or details of the project.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "beforeImageUrl": {
+          "type": "string",
+          "description": "URL of the image showing the vehicle 'before' the wrap/customization (for comparison sliders).",
+          "format": "uri"
+        },
+        "afterImageUrl": {
+          "type": "string",
+          "description": "URL of the image showing the vehicle 'after' the wrap/customization (for comparison sliders).",
+          "format": "uri"
+        },
+        "vehicleTypeId": {
+          "type": "string",
+          "description": "Reference to the VehicleType entity associated with this project. (Relationship: VehicleType 1:N Project)"
+        },
+        "serviceTypeIds": {
+          "type": "array",
+          "description": "References to the Service entities that were part of this project. (Relationship: Service N:N Project)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "finishTypeIds": {
+          "type": "array",
+          "description": "References to the FinishType entities used in this project. (Relationship: FinishType N:N Project)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "categoryIds": {
+          "type": "array",
+          "description": "References to the Category entities that help classify this project. (Relationship: Category N:N Project)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the project entry was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the project entry was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "mainImageUrl",
+        "beforeImageUrl",
+        "afterImageUrl",
+        "vehicleTypeId",
+        "serviceTypeIds",
+        "createdAt"
+      ]
+    },
+    "Service": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Service",
+      "type": "object",
+      "description": "Defines a car wrapping or customization service offered by Apex Wraps, including its details, pricing, and process.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Service entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the service (e.g., 'Full Wrap', 'Partial Wrap', 'PPF', 'Fleet Branding')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of what the service entails."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "A concise summary of the service."
+        },
+        "estimatedPriceMin": {
+          "type": "number",
+          "description": "The minimum estimated price for this service."
+        },
+        "estimatedPriceMax": {
+          "type": "number",
+          "description": "The maximum estimated price for this service."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of an image visually representing the service.",
+          "format": "uri"
+        },
+        "features": {
+          "type": "array",
+          "description": "A list of key features or benefits associated with this service.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "processSteps": {
+          "type": "array",
+          "description": "A list of structured steps outlining the typical process for this service.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "estimatedPriceMin",
+        "estimatedPriceMax"
+      ]
+    },
+    "VehicleType": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "VehicleType",
+      "type": "object",
+      "description": "Categorizes different types of vehicles that Apex Wraps services.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the VehicleType entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the vehicle type (e.g., 'Car', 'Truck', 'Van', 'SUV', 'Fleet')."
+        },
+        "iconName": {
+          "type": "string",
+          "description": "A string identifier (e.g., a font icon class or an internal alias) for the icon associated with this vehicle type."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of this vehicle type."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "iconName"
+      ]
+    },
+    "FinishType": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "FinishType",
+      "type": "object",
+      "description": "Defines different types of finishes available for car wraps.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the FinishType entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the finish type (e.g., 'Gloss', 'Matte', 'Chrome', 'Color-Shift')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the finish type."
+        },
+        "swatchColor": {
+          "type": "string",
+          "description": "A hexadecimal color code representing the primary color of this finish type for use in swatches."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of an image demonstrating this specific finish type.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "swatchColor"
+      ]
+    },
+    "Lead": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Lead",
+      "type": "object",
+      "description": "Represents a potential client inquiry submitted through the contact or quote request forms.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Lead entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The full name of the potential client."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the potential client.",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the potential client."
+        },
+        "vehicleTypeId": {
+          "type": "string",
+          "description": "Reference to the VehicleType entity selected by the client. (Relationship: VehicleType 1:N Lead)"
+        },
+        "serviceTypeId": {
+          "type": "string",
+          "description": "Reference to the Service entity the client is interested in. (Relationship: Service 1:N Lead)"
+        },
+        "message": {
+          "type": "string",
+          "description": "Additional message or specific requests from the client."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the lead was submitted.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current processing status of the lead (e.g., 'New', 'Contacted', 'Quoted', 'Closed')."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "phone",
+        "vehicleTypeId",
+        "serviceTypeId",
+        "message",
+        "createdAt",
+        "status"
+      ]
+    },
+    "Category": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Category",
+      "type": "object",
+      "description": "Provides a way to categorize projects and services for easier browsing and management.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Category entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the category (e.g., 'Full Wraps', 'Paint Protection Film', 'Custom Graphics')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of what this category encompasses."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "NewsletterSubscriber": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "NewsletterSubscriber",
+      "type": "object",
+      "description": "Stores information about users who have subscribed to the Apex Wraps newsletter.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the NewsletterSubscriber entity."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the subscriber.",
+          "format": "email"
+        },
+        "subscribedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the user subscribed.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "The subscription status (e.g., 'subscribed', 'unsubscribed', 'pending_confirmation')."
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "subscribedAt",
+        "status"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores details of completed car wrapping projects, including before/after images for sliders. Publicly accessible for display on the website. Admin-only write access.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "Unique identifier for a specific project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "services/{serviceId}",
+        "definition": {
+          "entityName": "Service",
+          "schema": {
+            "$ref": "#/backend/entities/Service"
+          },
+          "description": "Defines the types of wrapping services offered by Apex Wraps. Publicly accessible for displaying services and quote calculator options. Admin-only write access.",
+          "params": [
+            {
+              "name": "serviceId",
+              "description": "Unique identifier for a specific service."
+            }
+          ]
+        }
+      },
+      {
+        "path": "vehicleTypes/{vehicleTypeId}",
+        "definition": {
+          "entityName": "VehicleType",
+          "schema": {
+            "$ref": "#/backend/entities/VehicleType"
+          },
+          "description": "Categorizes different vehicle types serviced. Publicly accessible for quote calculator and form selections. Admin-only write access.",
+          "params": [
+            {
+              "name": "vehicleTypeId",
+              "description": "Unique identifier for a specific vehicle type."
+            }
+          ]
+        }
+      },
+      {
+        "path": "finishTypes/{finishTypeId}",
+        "definition": {
+          "entityName": "FinishType",
+          "schema": {
+            "$ref": "#/backend/entities/FinishType"
+          },
+          "description": "Defines various finish types available for wraps. Publicly accessible for quote calculator options. Admin-only write access.",
+          "params": [
+            {
+              "name": "finishTypeId",
+              "description": "Unique identifier for a specific finish type."
+            }
+          ]
+        }
+      },
+      {
+        "path": "categories/{categoryId}",
+        "definition": {
+          "entityName": "Category",
+          "schema": {
+            "$ref": "#/backend/entities/Category"
+          },
+          "description": "Provides categorization for projects and services. Publicly accessible for browsing and filtering. Admin-only write access.",
+          "params": [
+            {
+              "name": "categoryId",
+              "description": "Unique identifier for a specific category."
+            }
+          ]
+        }
+      },
+      {
+        "path": "leads/{leadId}",
+        "definition": {
+          "entityName": "Lead",
+          "schema": {
+            "$ref": "#/backend/entities/Lead"
+          },
+          "description": "Stores inquiries from potential clients via the contact and quote forms. Publicly writable by any user, but only accessible to authenticated administrators for reading and managing.",
+          "params": [
+            {
+              "name": "leadId",
+              "description": "Unique identifier for a specific lead."
+            }
+          ]
+        }
+      },
+      {
+        "path": "newsletterSubscribers/{subscriberId}",
+        "definition": {
+          "entityName": "NewsletterSubscriber",
+          "schema": {
+            "$ref": "#/backend/entities/NewsletterSubscriber"
+          },
+          "description": "Stores email addresses of users who subscribe to the newsletter. Publicly writable by any user, but only accessible to authenticated administrators for reading.",
+          "params": [
+            {
+              "name": "subscriberId",
+              "description": "Unique identifier for a specific newsletter subscriber."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed following the core principles of Authorization Independence, Structural Segregation, and DBAC to ensure a secure, scalable, and debuggable backend for Apex Wraps. \n\n**Authorization Independence & QAPs:**\nAll public-facing content (Projects, Services, Vehicle Types, Finish Types, Categories) is stored in top-level collections (`/projects`, `/services`, `/vehicleTypes`, `/finishTypes`, `/categories`). These collections are designed for public read access, allowing efficient `list` operations (QAPs) without requiring complex security rules that filter data based on user identity or other document attributes. This means any authenticated or unauthenticated user can read all documents in these collections, and Firestore rules will simply grant or deny access to the entire collection, not filter its contents. Since the data is public, there are no hierarchical authorization dependencies, directly supporting Authorization Independence.\n\n**Structural Segregation:**\nDifferent data types with distinct security postures are placed in separate, top-level collections:\n*   **Public Read, Admin Write:** `/projects`, `/services`, `/vehicleTypes`, `/finishTypes`, `/categories`. These collections hold static content intended for the website display and calculators. They are readable by everyone but can only be modified by authenticated administrators. This segregation simplifies rules by preventing mixed access patterns within a single collection.\n*   **Public Write, Admin Read:** `/leads`, `/newsletterSubscribers`. These collections are designed to capture user submissions from the contact form and newsletter subscription. Any user (even unauthenticated) can `create` documents in these collections. However, `read` access (including `list` and `get`) is strictly reserved for authenticated administrators. This ensures that sensitive lead data is not publicly exposed while still allowing anonymous submissions. This separation ensures `list` operations for admins retrieve all documents, without rule-based filtering, thus supporting QAPs for admin reads.\n*   **Admin Roles (DBAC):** Although not explicitly listed in `firestorePaths` due to schema constraints (no `Admin` entity schema provided), a critical `admins/{uid}` collection would be used. This collection would contain documents where the `uid` is that of an administrator. The *existence* of a document at `admins/{request.auth.uid}` would grant administrative privileges. This approach completely separates role management from data content, adhering to DBAC and Authorization Independence principles by avoiding `get()` calls on content documents to determine roles.\n\n**Denormalization:**\nFor this application, the primary authorization model is based on public access or a global 'admin' role. There are no nested collections where a child's authorization depends on a parent's specific `ownerId` or `members` map. Therefore, extensive denormalization of authorization fields *within data entities* is not required for the current scope, as the security posture is either global public or global admin-restricted based on the top-level collection. The `admins/{uid}` collection effectively denormalizes the 'admin' role status to a single, easily verifiable document lookup."
+  }
+}

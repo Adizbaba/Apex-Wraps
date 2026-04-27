@@ -1,0 +1,146 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * APEX WRAPS SECURITY RULES - PROTOTYPING MODE
+     * 
+     * Philosophy:
+     * - This ruleset enforces strict authorization (who can do what) while maintaining 
+     *   flexible data shapes to support rapid development.
+     * - Identity is verified via Firebase Auth (request.auth).
+     * - Role Management: Administrative access is determined by the existence of a 
+     *   document in the 'admins' collection matching the user's UID (DBAC pattern).
+     * 
+     * Data Structure:
+     * - /projects, /services, /vehicleTypes, /finishTypes, /categories: Publicly readable 
+     *   content for the website and quote calculator. Managed by administrators.
+     * - /leads, /newsletterSubscribers: Publicly writable collections for lead capture. 
+     *   Strictly readable only by administrators.
+     * - /admins: A private collection used for role-based access control.
+     */
+
+    // --- Helper Functions ---
+
+    /** @description Checks if the user is authenticated. */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /** @description Checks if the user's UID exists in the 'admins' collection. */
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    /** @description Verifies document existence and admin status for updates/deletes. */
+    function isExistingAdmin() {
+      return isAdmin() && resource != null;
+    }
+
+    // --- Collection Rules ---
+
+    /**
+     * @description Access control for the internal administrators list.
+     * @path /admins/{uid}
+     * @allow (get) Signed-in users can verify their own admin status.
+     * @deny (list, create, update, delete) Direct modification by users is prohibited.
+     * @principle Database-Based Access Control (DBAC) for role management.
+     */
+    match /admins/{uid} {
+      allow get: if isSignedIn() && request.auth.uid == uid;
+      allow list, create, update, delete: if false;
+    }
+
+    /**
+     * @description Publicly viewable wrap projects and showcase gallery.
+     * @path /projects/{projectId}
+     * @allow (get, list) Anyone can view completed projects.
+     * @allow (create, update, delete) Only administrators can manage project content.
+     * @principle Public read with admin-only writes.
+     */
+    match /projects/{projectId} {
+      allow get, list: if true;
+      allow create: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Offered services (Full Wrap, PPF, etc.) and pricing ranges.
+     * @path /services/{serviceId}
+     * @allow (get, list) Anyone can view service details for the quote calculator.
+     * @allow (create, update, delete) Only administrators can manage services.
+     * @principle Public read with admin-only writes.
+     */
+    match /services/{serviceId} {
+      allow get, list: if true;
+      allow create: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Vehicle categories used for filtering and the quote tool.
+     * @path /vehicleTypes/{vehicleTypeId}
+     * @allow (get, list) Anyone can view vehicle types.
+     * @allow (create, update, delete) Only administrators can manage vehicle types.
+     * @principle Public read with admin-only writes.
+     */
+    match /vehicleTypes/{vehicleTypeId} {
+      allow get, list: if true;
+      allow create: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Available finish types (Matte, Gloss, etc.) for the calculator.
+     * @path /finishTypes/{finishTypeId}
+     * @allow (get, list) Anyone can view wrap finishes.
+     * @allow (create, update, delete) Only administrators can manage finish types.
+     * @principle Public read with admin-only writes.
+     */
+    match /finishTypes/{finishTypeId} {
+      allow get, list: if true;
+      allow create: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Categories for organizing the portfolio and blog.
+     * @path /categories/{categoryId}
+     * @allow (get, list) Anyone can browse categories.
+     * @allow (create, update, delete) Only administrators can manage categories.
+     * @principle Public read with admin-only writes.
+     */
+    match /categories/{categoryId} {
+      allow get, list: if true;
+      allow create: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Lead capture for contact forms and quote requests.
+     * @path /leads/{leadId}
+     * @allow (create) Anyone can submit a lead (contact form).
+     * @allow (get, list, update, delete) Only administrators can view and manage leads.
+     * @deny (get, list) Public users cannot see other people's contact inquiries.
+     * @principle Public write with protected admin-only read access.
+     */
+    match /leads/{leadId} {
+      allow create: if true;
+      allow get, list: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Newsletter subscription list.
+     * @path /newsletterSubscribers/{subscriberId}
+     * @allow (create) Anyone can subscribe to the newsletter.
+     * @allow (get, list, update, delete) Only administrators can view the subscriber list.
+     * @principle Public write with protected admin-only read access.
+     */
+    match /newsletterSubscribers/{subscriberId} {
+      allow create: if true;
+      allow get, list: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+  }
+}
