@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { SectionLabel } from '@/components/ui/section-label';
 
 export function Hero() {
   const [stats, setStats] = useState({ vehicles: 0, experience: 0, satisfaction: 0 });
@@ -29,9 +28,25 @@ export function Hero() {
 
   return (
     <section className="relative h-screen w-full flex items-center overflow-hidden bg-[#0a0a0a]">
-      {/* Background Layer */}
-      <div className="absolute inset-0 grid-background animate-grid opacity-40" />
-      <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[60%] bg-orange/10 blur-[150px] rounded-full" />
+      {/* Background Video Layer */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+        >
+          <source src="https://res.cloudinary.com/dse63uv5p/video/upload/v177333581/0428_cs5ksk.mov" type="video/quicktime" />
+          <source src="https://res.cloudinary.com/dse63uv5p/video/upload/v177333581/0428_cs5ksk.mov" type="video/mp4" />
+        </video>
+        {/* Overlay to ensure text readability */}
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+
+      {/* Grid Overlay */}
+      <div className="absolute inset-0 grid-background animate-grid opacity-30 z-1" />
+      <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[60%] bg-orange/10 blur-[150px] rounded-full z-1" />
       
       <div className="container mx-auto px-6 relative z-10 flex flex-col justify-center h-full">
         {/* Badge */}
