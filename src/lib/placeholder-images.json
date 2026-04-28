@@ -20,9 +20,9 @@
     },
     {
       "id": "port-1",
-      "description": "Lamborghini Huracán - Ember Flame Wrap",
-      "imageUrl": "https://picsum.photos/seed/15/1200/800",
-      "imageHint": "lamborghini wrap"
+      "description": "Mercedes-Benz G-Wagon - Satin Red Wrap",
+      "imageUrl": "https://res.cloudinary.com/dse63uv5p/image/upload/v1777335776/Red_G-wagon_zlilnb.jpg",
+      "imageHint": "red g-wagon wrap"
     },
     {
       "id": "port-2",
@@ -75,8 +75,8 @@
     {
       "id": "slider-1-after",
       "description": "Vibrant red wrap sports car after",
-      "imageUrl": "https://picsum.photos/seed/24/1200/800",
-      "imageHint": "red car after"
+      "imageUrl": "https://res.cloudinary.com/dse63uv5p/image/upload/v1777335776/Red_G-wagon_zlilnb.jpg",
+      "imageHint": "red g-wagon after"
     },
     {
       "id": "slider-2-before",

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -7,9 +6,9 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 const projects = [
   {
     id: 'port-1',
-    title: 'Lamborghini Huracán',
-    subtitle: 'Ember Flame Wrap',
-    tag: 'Full Wrap · Sports Car',
+    title: 'Mercedes-Benz G-Wagon',
+    subtitle: 'Satin Red Edition',
+    tag: 'Full Wrap · Luxury SUV',
     isLarge: true
   },
   {
