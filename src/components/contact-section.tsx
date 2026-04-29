@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -12,6 +11,7 @@ import { collection } from 'firebase/firestore';
 import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { SectionLabel } from '@/components/ui/section-label';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { notifyAdmin } from '@/ai/flows/lead-notification-flow';
 
 type FormData = {
   name: string;
@@ -32,11 +32,19 @@ export function ContactSection() {
     setIsSubmitting(true);
     const leadsRef = collection(firestore, 'leads');
     
+    // 1. Save to Firestore (Non-blocking)
     addDocumentNonBlocking(leadsRef, {
       ...data,
       status: 'New',
       createdAt: new Date().toISOString()
-    }).then(() => {
+    }).then(async () => {
+      // 2. Trigger Admin Notification Flow
+      try {
+        await notifyAdmin(data);
+      } catch (error) {
+        console.error('Failed to send lead notification:', error);
+      }
+
       toast({
         title: "Quote Requested!",
         description: "Our team will contact you within 24 hours.",
