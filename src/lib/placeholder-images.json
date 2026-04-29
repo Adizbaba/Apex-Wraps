@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "hero-bg",
+      "description": "Premium luxury car wrap background",
+      "imageUrl": "https://res.cloudinary.com/dse63uv5p/image/upload/v1777504661/grok-image-d0408f54-78cd-4e86-b9fe-35ece17347ac_1_hofvue.jpg",
+      "imageHint": "luxury car"
+    },
+    {
       "id": "about-top",
       "description": "Precision wrap installation close-up",
       "imageUrl": "https://res.cloudinary.com/dse63uv5p/image/upload/v1777419218/eb992e9f-a362-4dbc-9b8b-c5967e584390_qs5hdp.jpg",

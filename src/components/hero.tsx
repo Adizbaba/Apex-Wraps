@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function Hero() {
   const [stats, setStats] = useState({ vehicles: 0, experience: 0, satisfaction: 0 });
@@ -26,19 +28,22 @@ export function Hero() {
     return () => clearInterval(timer);
   }, []);
 
+  const heroBg = PlaceHolderImages.find(img => img.id === 'hero-bg');
+
   return (
     <section className="relative h-screen w-full flex items-center overflow-hidden bg-[#0a0a0a]">
-      {/* Background Video Layer */}
+      {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
-        >
-          <source src="https://res.cloudinary.com/dse63uv5p/video/upload/v177333581/0428_cs5ksk.mov" type="video/quicktime" />
-          <source src="https://res.cloudinary.com/dse63uv5p/video/upload/v177333581/0428_cs5ksk.mov" type="video/mp4" />
-        </video>
+        {heroBg && (
+          <Image
+            src={heroBg.imageUrl}
+            alt={heroBg.description}
+            fill
+            priority
+            className="object-cover opacity-60"
+            data-ai-hint="luxury car"
+          />
+        )}
         {/* Overlay to ensure text readability */}
         <div className="absolute inset-0 bg-black/40" />
       </div>
