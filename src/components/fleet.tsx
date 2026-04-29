@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Image from 'next/image';
 import { SectionLabel } from '@/components/ui/section-label';
 
 const benefits = [
@@ -11,7 +12,11 @@ const benefits = [
 ];
 
 const makes = [
-  { name: 'Ford', highlighted: false },
+  { 
+    name: 'Ford', 
+    highlighted: false,
+    imageUrl: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777483964/5b8ad571-3436-4fc2-98b4-6690eb788aa8_hxypsc.jpg'
+  },
   { name: 'Mercedes', highlighted: false },
   { name: 'Ram', highlighted: false },
   { name: 'Chevy', highlighted: false },
@@ -62,13 +67,24 @@ export function Fleet() {
               <div 
                 key={make.name}
                 className={`
-                  aspect-square flex items-center justify-center p-6 border transition-all duration-300
+                  aspect-square flex items-center justify-center p-6 border transition-all duration-300 group relative overflow-hidden
                   ${make.highlighted 
                     ? 'bg-orange border-orange text-black' 
                     : 'bg-black/50 border-white/5 text-white/40 hover:border-orange hover:text-white hover:bg-black'}
                 `}
               >
-                <span className="text-xl font-headline uppercase tracking-widest">{make.name}</span>
+                {('imageUrl' in make && make.imageUrl) && (
+                  <>
+                    <Image 
+                      src={make.imageUrl as string} 
+                      alt={make.name} 
+                      fill 
+                      className="object-cover opacity-20 group-hover:opacity-40 transition-opacity"
+                    />
+                    <div className="absolute inset-0 bg-black/20" />
+                  </>
+                )}
+                <span className="text-xl font-headline uppercase tracking-widest relative z-10">{make.name}</span>
               </div>
             ))}
           </div>
