@@ -2,13 +2,20 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { SectionLabel } from '@/components/ui/section-label';
-import { Car, Truck, Zap, Shield, Palette, Sparkles, MoveRight } from 'lucide-react';
+import { Truck, MoveRight, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const vehicleTypes = [
-  { id: 'car', name: 'Car', icon: Car, basePrice: 1800 },
+  { 
+    id: 'car', 
+    name: 'Car', 
+    icon: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777478196/car_v7atfj.png', 
+    isImage: true,
+    basePrice: 1800 
+  },
   { id: 'suv', name: 'SUV', icon: Sparkles, basePrice: 2200 },
   { id: 'truck', name: 'Truck', icon: Truck, basePrice: 2500 },
   { id: 'fleet', name: 'Fleet', icon: MoveRight, basePrice: 1500 }
@@ -80,7 +87,18 @@ export function QuoteCalculator() {
                       selections.vehicle?.id === type.id ? "bg-orange border-orange text-black" : "bg-white/5 border-white/10 text-white/40 hover:border-orange hover:text-white"
                     )}
                   >
-                    <type.icon className="w-10 h-10" />
+                    {type.isImage ? (
+                      <div className="relative w-10 h-10">
+                        <Image 
+                          src={type.icon as string} 
+                          alt={type.name} 
+                          fill 
+                          className={cn("object-contain", selections.vehicle?.id === type.id ? "brightness-0" : "opacity-40 group-hover:opacity-100 group-hover:brightness-200")}
+                        />
+                      </div>
+                    ) : (
+                      <type.icon className="w-10 h-10" />
+                    )}
                     <span className="font-headline uppercase tracking-widest">{type.name}</span>
                   </button>
                 ))}
