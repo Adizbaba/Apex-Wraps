@@ -17,7 +17,11 @@ const makes = [
     highlighted: false,
     imageUrl: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777483964/5b8ad571-3436-4fc2-98b4-6690eb788aa8_hxypsc.jpg'
   },
-  { name: 'Mercedes', highlighted: false },
+  { 
+    name: 'Mercedes', 
+    highlighted: false,
+    imageUrl: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777484487/093d4ccf-3b82-4fb8-870d-8223960e2ef2_lhhddn.jpg'
+  },
   { name: 'Ram', highlighted: false },
   { name: 'Chevy', highlighted: false },
   { name: 'GMC', highlighted: false },
