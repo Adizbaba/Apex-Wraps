@@ -110,16 +110,6 @@ export function Services() {
               {/* Grid Background */}
               <div className="absolute inset-0 grid-background opacity-20 pointer-events-none z-1" />
               
-              {/* Car Illustration Placeholder */}
-              <div className="relative z-10 w-full max-w-sm mb-8 opacity-40">
-                <svg viewBox="0 0 200 80" className="w-full h-auto fill-none stroke-orange stroke-1">
-                  <path d="M10 50 Q 10 30 50 30 L 120 30 Q 160 30 190 50 L 190 70 L 10 70 Z" />
-                  <circle cx="45" cy="70" r="10" />
-                  <circle cx="155" cy="70" r="10" />
-                  <path d="M50 30 L 70 10 L 110 10 L 130 30" strokeOpacity="0.5" />
-                </svg>
-              </div>
-
               <h3 className="text-3xl font-headline text-white uppercase mb-4 relative z-10">
                 Ready for a <span className="text-orange">Transformation?</span>
               </h3>
