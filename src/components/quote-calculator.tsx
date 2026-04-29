@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { SectionLabel } from '@/components/ui/section-label';
-import { Truck, MoveRight, Sparkles } from 'lucide-react';
+import { Truck, MoveRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const vehicleTypes = [
@@ -19,7 +19,7 @@ const vehicleTypes = [
   { 
     id: 'suv', 
     name: 'SUV', 
-    icon: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777480360/68c22594-399c-4305-bc67-46da41ad1747_jtjhrd.jpg', 
+    icon: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777481309/suv_nnertc.png', 
     isImage: true,
     basePrice: 2200 
   },
@@ -94,7 +94,7 @@ export function QuoteCalculator() {
                     )}
                   >
                     {type.isImage ? (
-                      <div className="relative w-10 h-10">
+                      <div className="relative w-12 h-12">
                         <Image 
                           src={type.icon as string} 
                           alt={type.name} 
