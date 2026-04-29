@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { SectionLabel } from '@/components/ui/section-label';
-import { Truck, MoveRight } from 'lucide-react';
+import { MoveRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const vehicleTypes = [
@@ -23,7 +23,13 @@ const vehicleTypes = [
     isImage: true,
     basePrice: 2200 
   },
-  { id: 'truck', name: 'Truck', icon: Truck, basePrice: 2500 },
+  { 
+    id: 'truck', 
+    name: 'Truck', 
+    icon: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777482779/Untitled_design-removebg-preview_iutwjz.png', 
+    isImage: true,
+    basePrice: 2500 
+  },
   { id: 'fleet', name: 'Fleet', icon: MoveRight, basePrice: 1500 }
 ];
 
