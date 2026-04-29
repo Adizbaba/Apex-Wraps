@@ -32,7 +32,11 @@ const makes = [
     highlighted: false,
     imageUrl: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777485184/915e0d93-00e2-41ef-bb16-bc181098e631_ikkifl.jpg'
   },
-  { name: 'GMC', highlighted: false },
+  { 
+    name: 'GMC', 
+    highlighted: false,
+    imageUrl: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777485361/2fe54f9c-9dca-4a5b-a192-b908d66448dd_vpys1q.jpg'
+  },
   { name: 'Any Make', highlighted: true }
 ];
 
