@@ -93,38 +93,38 @@ export function Services() {
 
           {/* Right: Sticky Showcase */}
           <div className="lg:sticky lg:top-24">
-            <div className="bg-black border border-white/5 p-8 chamfer-clip relative overflow-hidden aspect-[4/5] flex flex-col items-center justify-center text-center">
+            <div className="group bg-black border border-white/5 p-8 chamfer-clip relative overflow-hidden aspect-[4/5] flex flex-col items-center justify-center text-center transition-all duration-500">
               {/* Background Image */}
               {showcaseBg && (
                 <Image 
                   src={showcaseBg.imageUrl} 
                   alt={showcaseBg.description} 
                   fill 
-                  className="object-cover opacity-40 z-0"
+                  className="object-cover opacity-40 group-hover:opacity-100 transition-opacity duration-700 z-0"
                 />
               )}
               
               {/* Dark Overlay */}
-              <div className="absolute inset-0 bg-black/40 z-0" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-700 z-0" />
 
               {/* Grid Background */}
               <div className="absolute inset-0 grid-background opacity-20 pointer-events-none z-1" />
               
-              <h3 className="text-3xl font-headline text-white uppercase mb-4 relative z-10">
+              <h3 className="text-3xl font-headline text-white uppercase mb-4 relative z-10 transition-colors group-hover:text-white">
                 Ready for a <span className="text-orange">Transformation?</span>
               </h3>
-              <p className="text-white/40 text-sm mb-8 max-w-xs relative z-10">
+              <p className="text-white/40 text-sm mb-8 max-w-xs relative z-10 group-hover:text-white/80 transition-colors">
                 Join thousands of satisfied clients who trust Apex Wraps with their most valuable assets.
               </p>
 
               <div className="grid grid-cols-2 gap-8 w-full border-t border-white/5 pt-8 mt-auto relative z-10">
                 <div className="text-left">
                   <span className="block text-2xl font-headline text-orange">2,400+</span>
-                  <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Wraps Completed</span>
+                  <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest group-hover:text-white/60">Wraps Completed</span>
                 </div>
                 <div className="text-right">
                   <span className="block text-2xl font-headline text-white">4.9★</span>
-                  <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Client Rating</span>
+                  <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest group-hover:text-white/60">Client Rating</span>
                 </div>
               </div>
             </div>
