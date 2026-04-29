@@ -68,7 +68,7 @@ export function ContactSection() {
                 <Phone className="w-5 h-5 text-orange mt-1" />
                 <div>
                   <h4 className="text-white font-bold text-sm">Call Us</h4>
-                  <p className="text-white/40 text-sm">(713) 555-0192</p>
+                  <p className="text-white/40 text-sm">571 632 7734</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -82,7 +82,7 @@ export function ContactSection() {
                 <MapPin className="w-5 h-5 text-orange mt-1" />
                 <div>
                   <h4 className="text-white font-bold text-sm">Visit</h4>
-                  <p className="text-white/40 text-sm">Houston, TX 77002</p>
+                  <p className="text-white/40 text-sm">(US & CA)</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -124,7 +124,7 @@ export function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Phone Number</label>
-                  <Input {...register('phone', { required: true })} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="(713) 555-0192" />
+                  <Input {...register('phone', { required: true })} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="571 632 7734" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Vehicle Type</label>

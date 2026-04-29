@@ -45,19 +45,15 @@ export default function RootLayout({
               "image": "https://picsum.photos/seed/1/800/600",
               "@id": "",
               "url": "https://apex-wraps.com",
-              "telephone": "+17135550192",
+              "telephone": "+15716327734",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "123 Precision Dr",
-                "addressLocality": "Houston",
-                "addressRegion": "TX",
-                "postalCode": "77002",
-                "addressCountry": "US"
+                "addressCountry": "US & CA"
               },
               "geo": {
                 "@type": "GeoCoordinates",
-                "latitude": 29.7604,
-                "longitude": -95.3698
+                "latitude": 37.0902,
+                "longitude": -95.7129
               },
               "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",

@@ -108,7 +108,7 @@ export function Footer() {
             © 2025 ApexWraps Studio. All Rights Reserved.
           </p>
           <div className="flex gap-8">
-            {['Privacy Policy', 'Terms of Service', 'Sitemap'].map((item) => (
+            {['Privacy Policy', 'Terms of Service'].map((item) => (
               <Link key={item} href="#" className="text-white/20 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest">
                 {item}
               </Link>

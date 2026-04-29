@@ -16,7 +16,7 @@ export function WhatsAppButton() {
   const dragRef = useRef({ startX: 0, startY: 0, initialX: 0, initialY: 0 });
 
   const config = {
-    number: "5716287734",
+    number: "5716327734",
     message: "Thank you for contacting Apex-Wrap",
     color: "#25D366",
   };
