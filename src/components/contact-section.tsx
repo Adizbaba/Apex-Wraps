@@ -113,18 +113,18 @@ export function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Full Name</label>
-                  <Input {...register('name', { required: true })} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="John Doe" />
+                  <Input {...register('name', { required: true })} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="First & Last Name" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Email Address</label>
-                  <Input {...register('email', { required: true })} type="email" className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="john@example.com" />
+                  <Input {...register('email', { required: true })} type="email" className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="Email@example.com" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Phone Number</label>
-                  <Input {...register('phone', { required: true })} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="571 632 7734" />
+                  <Input {...register('phone', { required: true })} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="(xxx) xxx xxxx" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Vehicle Type</label>
