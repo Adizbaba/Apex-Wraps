@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -25,8 +26,10 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -76,56 +79,58 @@ export function Navbar() {
           </Button>
 
           {/* Mobile Burger Menu */}
-          <div className="md:hidden">
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  className="text-white border border-white/10 hover:border-orange hover:bg-white/5 hover:text-orange transition-all p-0 h-12 w-12 rounded-none"
-                >
-                  <Menu className="w-10 h-10" strokeWidth={2.5} />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-background border-l border-white/5 p-8 flex flex-col">
-                <SheetHeader className="mb-12 text-left">
-                  <SheetTitle>
-                    <div className="flex items-center gap-3">
-                      <div className="relative w-8 h-8">
-                        <svg viewBox="0 0 100 100" className="w-full h-full fill-orange">
-                          <path d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" />
-                          <text x="50" y="62" textAnchor="middle" fill="black" fontSize="28" fontWeight="900" fontFamily="sans-serif">AW</text>
-                        </svg>
+          {mounted && (
+            <div className="md:hidden">
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    className="text-white border border-white/10 hover:border-orange hover:bg-white/5 hover:text-orange transition-all p-0 h-12 w-12 rounded-none"
+                  >
+                    <Menu className="w-10 h-10" strokeWidth={2.5} />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="bg-background border-l border-white/5 p-8 flex flex-col">
+                  <SheetHeader className="mb-12 text-left">
+                    <SheetTitle>
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-8 h-8">
+                          <svg viewBox="0 0 100 100" className="w-full h-full fill-orange">
+                            <path d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" />
+                            <text x="50" y="62" textAnchor="middle" fill="black" fontSize="28" fontWeight="900" fontFamily="sans-serif">AW</text>
+                          </svg>
+                        </div>
+                        <div className="flex flex-col leading-none font-headline tracking-tighter text-left">
+                          <span className="text-lg text-white">APEX</span>
+                          <span className="text-lg text-orange">WRAPS</span>
+                        </div>
                       </div>
-                      <div className="flex flex-col leading-none font-headline tracking-tighter text-left">
-                        <span className="text-lg text-white">APEX</span>
-                        <span className="text-lg text-orange">WRAPS</span>
-                      </div>
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-6">
+                    {navLinks.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="text-xl font-headline uppercase tracking-widest text-white/70 hover:text-orange transition-colors"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                    <div className="mt-8 pt-8 border-t border-white/5">
+                      <Button variant="primary" className="w-full" onClick={() => {
+                        setIsOpen(false);
+                        document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+                      }}>
+                        Get a Quote
+                      </Button>
                     </div>
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-6">
-                  {navLinks.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className="text-xl font-headline uppercase tracking-widest text-white/70 hover:text-orange transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                  <div className="mt-8 pt-8 border-t border-white/5">
-                    <Button variant="primary" className="w-full" onClick={() => {
-                      setIsOpen(false);
-                      document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
-                    }}>
-                      Get a Quote
-                    </Button>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+          )}
         </div>
       </div>
     </nav>
