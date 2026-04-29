@@ -68,9 +68,9 @@
     },
     {
       "id": "slider-1-before",
-      "description": "Stock gray sports car before wrap",
-      "imageUrl": "https://picsum.photos/seed/23/1200/800",
-      "imageHint": "gray car before"
+      "description": "Vehicle before wrap",
+      "imageUrl": "https://res.cloudinary.com/dse63uv5p/image/upload/v1777469378/ghon_prcxym.jpg",
+      "imageHint": "car before wrap"
     },
     {
       "id": "slider-1-after",
