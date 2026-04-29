@@ -38,11 +38,14 @@ export function ContactSection() {
       status: 'New',
       createdAt: new Date().toISOString()
     }).then(async () => {
-      // 2. Trigger Admin Notification Flow
+      // 2. Trigger Admin Notification Flow (Email via Resend)
       try {
-        await notifyAdmin(data);
+        const result = await notifyAdmin(data);
+        if (!result.success) {
+          console.error('Email notification failed:', result.status);
+        }
       } catch (error) {
-        console.error('Failed to send lead notification:', error);
+        console.error('Failed to trigger lead notification flow:', error);
       }
 
       toast({
@@ -50,6 +53,9 @@ export function ContactSection() {
         description: "Our team will contact you within 24 hours.",
       });
       reset();
+      setIsSubmitting(false);
+    }).catch((err) => {
+      console.error('Firestore save failed:', err);
       setIsSubmitting(false);
     });
   };

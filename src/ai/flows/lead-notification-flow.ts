@@ -1,14 +1,15 @@
 'use server';
 /**
- * @fileOverview A flow that handles notifications for new customer leads.
+ * @fileOverview A flow that handles notifications for new customer leads using Resend.
  *
- * - notifyAdmin - A function that processes lead data and triggers notification logic.
+ * - notifyAdmin - A function that processes lead data and sends an email via Resend.
  * - LeadNotificationInput - Input schema for lead details.
  * - LeadNotificationOutput - Output schema for the result of the notification.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { Resend } from 'resend';
 
 const LeadNotificationInputSchema = z.object({
   name: z.string().describe('Full name of the customer'),
@@ -28,6 +29,8 @@ const LeadNotificationOutputSchema = z.object({
 
 export type LeadNotificationOutput = z.infer<typeof LeadNotificationOutputSchema>;
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function notifyAdmin(input: LeadNotificationInput): Promise<LeadNotificationOutput> {
   return leadNotificationFlow(input);
 }
@@ -39,30 +42,52 @@ const leadNotificationFlow = ai.defineFlow(
     outputSchema: LeadNotificationOutputSchema,
   },
   async (input) => {
-    // This flow processes the lead and prepares it for notification.
-    // In a production environment, you would integrate with an email service API here (e.g., Resend, SendGrid).
-    
-    // We use AI to generate a professional internal notification summary
+    // 1. Generate a professional summary using AI
     const prompt = `
       Generate a professional internal notification summary for a new business lead.
       Customer Name: ${input.name}
-      Service: ${input.service}
+      Contact Email: ${input.email}
+      Contact Phone: ${input.phone}
       Vehicle: ${input.vehicleType}
-      Message: ${input.message}
+      Service Requested: ${input.service}
+      Customer Message: ${input.message}
       
-      Format it as a concise executive summary for the sales team.
+      Format it as a concise executive summary for the sales team at Apex Wraps.
     `;
 
     const { text } = await ai.generate(prompt);
 
-    // LOGGING: This drafts the email content. To actually send it, integrate an email provider.
-    console.log('--- NEW LEAD RECEIVED (Notification Drafted) ---');
-    console.log(text);
-    console.log('-------------------------------');
+    // 2. Send the email via Resend
+    try {
+      const { data, error } = await resend.emails.send({
+        from: 'Apex Wraps Leads <onboarding@resend.dev>',
+        to: 'hello@apexwraps.com', // Recipient email address
+        subject: `New Lead: ${input.name} - ${input.service}`,
+        text: text,
+      });
 
-    return {
-      success: true,
-      status: 'Lead notification successfully drafted and logged.',
-    };
+      if (error) {
+        console.error('Resend API Error:', error);
+        return {
+          success: false,
+          status: `Resend Error: ${error.message}`,
+        };
+      }
+
+      console.log('--- NEW LEAD RECEIVED (Email Sent) ---');
+      console.log('ID:', data?.id);
+      console.log('-------------------------------');
+
+      return {
+        success: true,
+        status: 'Lead notification successfully sent.',
+      };
+    } catch (err: any) {
+      console.error('Failed to send lead notification:', err);
+      return {
+        success: false,
+        status: `Network or Server Error: ${err.message}`,
+      };
+    }
   }
 );
