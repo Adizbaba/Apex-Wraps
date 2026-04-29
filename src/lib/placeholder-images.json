@@ -95,6 +95,12 @@
       "description": "Fully branded commercial van after wrap",
       "imageUrl": "https://picsum.photos/seed/26/1200/800",
       "imageHint": "branded van after"
+    },
+    {
+      "id": "services-showcase-bg",
+      "description": "Premium car detail for services showcase",
+      "imageUrl": "https://res.cloudinary.com/dse63uv5p/image/upload/v1777505898/db7e7ac7-e2a1-49b5-b1dd-873bba31731b_bbkdw5.jpg",
+      "imageHint": "luxury car"
     }
   ]
 }

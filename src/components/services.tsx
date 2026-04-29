@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Image from 'next/image';
 import {
   Accordion,
   AccordionContent,
@@ -7,6 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SectionLabel } from '@/components/ui/section-label';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const serviceList = [
   {
@@ -48,6 +50,8 @@ const serviceList = [
 ];
 
 export function Services() {
+  const showcaseBg = PlaceHolderImages.find(img => img.id === 'services-showcase-bg');
+
   return (
     <section id="services" className="py-24 bg-[#111111]">
       <div className="container mx-auto px-6">
@@ -90,8 +94,21 @@ export function Services() {
           {/* Right: Sticky Showcase */}
           <div className="lg:sticky lg:top-24">
             <div className="bg-black border border-white/5 p-8 chamfer-clip relative overflow-hidden aspect-[4/5] flex flex-col items-center justify-center text-center">
+              {/* Background Image */}
+              {showcaseBg && (
+                <Image 
+                  src={showcaseBg.imageUrl} 
+                  alt={showcaseBg.description} 
+                  fill 
+                  className="object-cover opacity-40 z-0"
+                />
+              )}
+              
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-black/40 z-0" />
+
               {/* Grid Background */}
-              <div className="absolute inset-0 grid-background opacity-20 pointer-events-none" />
+              <div className="absolute inset-0 grid-background opacity-20 pointer-events-none z-1" />
               
               {/* Car Illustration Placeholder */}
               <div className="relative z-10 w-full max-w-sm mb-8 opacity-40">
