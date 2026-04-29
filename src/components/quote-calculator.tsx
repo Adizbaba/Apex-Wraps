@@ -16,7 +16,13 @@ const vehicleTypes = [
     isImage: true,
     basePrice: 1800 
   },
-  { id: 'suv', name: 'SUV', icon: Sparkles, basePrice: 2200 },
+  { 
+    id: 'suv', 
+    name: 'SUV', 
+    icon: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777480360/68c22594-399c-4305-bc67-46da41ad1747_jtjhrd.jpg', 
+    isImage: true,
+    basePrice: 2200 
+  },
   { id: 'truck', name: 'Truck', icon: Truck, basePrice: 2500 },
   { id: 'fleet', name: 'Fleet', icon: MoveRight, basePrice: 1500 }
 ];
