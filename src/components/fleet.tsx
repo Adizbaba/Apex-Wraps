@@ -22,7 +22,11 @@ const makes = [
     highlighted: false,
     imageUrl: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777484487/093d4ccf-3b82-4fb8-870d-8223960e2ef2_lhhddn.jpg'
   },
-  { name: 'Ram', highlighted: false },
+  { 
+    name: 'Ram', 
+    highlighted: false,
+    imageUrl: 'https://res.cloudinary.com/dse63uv5p/image/upload/v1777484891/216415e9-0015-4b7e-aef5-a577a3e5bcc7_mitl34.jpg'
+  },
   { name: 'Chevy', highlighted: false },
   { name: 'GMC', highlighted: false },
   { name: 'Any Make', highlighted: true }
