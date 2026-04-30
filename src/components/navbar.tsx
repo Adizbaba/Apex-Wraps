@@ -83,8 +83,10 @@ export function Navbar() {
 
         {/* Action Button & Mobile Menu */}
         <div className="flex items-center gap-4">
-          <Button variant="primary" className="rounded-full px-8 hidden sm:flex">
-            Get a Quote
+          <Button variant="primary" className="rounded-full px-8 hidden sm:flex" asChild>
+            <Link href="#contact">
+              Get a Quote
+            </Link>
           </Button>
 
           {/* Mobile Burger Menu */}
@@ -134,7 +136,7 @@ export function Navbar() {
                     <div className="mt-8 pt-8 border-t border-white/5">
                       <Button variant="primary" className="w-full" onClick={() => {
                         setIsOpen(false);
-                        document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                       }}>
                         Get a Quote
                       </Button>
