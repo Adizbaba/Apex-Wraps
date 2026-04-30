@@ -3,9 +3,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Menu } from 'lucide-react';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import {
   Sheet,
   SheetContent,
@@ -37,6 +39,8 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const logo = PlaceHolderImages.find(img => img.id === 'brand-logo');
+
   return (
     <nav
       className={cn(
@@ -47,11 +51,16 @@ export function Navbar() {
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10">
-            <svg viewBox="0 0 100 100" className="w-full h-full fill-orange drop-shadow-[0_0_8px_rgba(255,77,0,0.5)]">
-              <path d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" />
-              <text x="50" y="62" textAnchor="middle" fill="black" fontSize="28" fontWeight="900" fontFamily="sans-serif">AW</text>
-            </svg>
+          <div className="relative w-12 h-12">
+            {logo && (
+              <Image 
+                src={logo.imageUrl}
+                alt="Apex Wraps"
+                fill
+                className="object-contain drop-shadow-[0_0_8px_rgba(255,77,0,0.3)] transition-transform group-hover:scale-110"
+                priority
+              />
+            )}
           </div>
           <div className="flex flex-col leading-none font-headline tracking-tighter">
             <span className="text-2xl text-white">APEX</span>
@@ -94,11 +103,15 @@ export function Navbar() {
                   <SheetHeader className="mb-12 text-left">
                     <SheetTitle>
                       <div className="flex items-center gap-3">
-                        <div className="relative w-8 h-8">
-                          <svg viewBox="0 0 100 100" className="w-full h-full fill-orange">
-                            <path d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" />
-                            <text x="50" y="62" textAnchor="middle" fill="black" fontSize="28" fontWeight="900" fontFamily="sans-serif">AW</text>
-                          </svg>
+                        <div className="relative w-10 h-10">
+                          {logo && (
+                            <Image 
+                              src={logo.imageUrl}
+                              alt="Apex Wraps"
+                              fill
+                              className="object-contain"
+                            />
+                          )}
                         </div>
                         <div className="flex flex-col leading-none font-headline tracking-tighter text-left">
                           <span className="text-lg text-white">APEX</span>

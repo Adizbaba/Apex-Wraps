@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "brand-logo",
+      "description": "Apex Wraps Brand Logo",
+      "imageUrl": "https://res.cloudinary.com/dse63uv5p/image/upload/v1777511848/AW_uonfks.png",
+      "imageHint": "brand logo"
+    },
+    {
       "id": "hero-bg",
       "description": "Premium luxury car wrap background",
       "imageUrl": "https://res.cloudinary.com/dse63uv5p/image/upload/v1777504661/grok-image-d0408f54-78cd-4e86-b9fe-35ece17347ac_1_hofvue.jpg",

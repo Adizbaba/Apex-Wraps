@@ -3,15 +3,19 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Instagram, Facebook, Youtube, Linkedin, Twitter, ArrowRight } from 'lucide-react';
 import { useFirestore } from '@/firebase';
 import { collection } from 'firebase/firestore';
 import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { useToast } from '@/hooks/use-toast';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function Footer() {
   const { toast } = useToast();
   const firestore = useFirestore();
+
+  const logo = PlaceHolderImages.find(img => img.id === 'brand-logo');
 
   const handleNewsletterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,10 +41,15 @@ export function Footer() {
           {/* Col 1: Brand */}
           <div className="space-y-8">
             <Link href="/" className="flex items-center gap-3">
-              <div className="relative w-8 h-8">
-                <svg viewBox="0 0 100 100" className="w-full h-full fill-orange">
-                  <path d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" />
-                </svg>
+              <div className="relative w-10 h-10">
+                {logo && (
+                  <Image 
+                    src={logo.imageUrl}
+                    alt="Apex Wraps"
+                    fill
+                    className="object-contain"
+                  />
+                )}
               </div>
               <div className="flex flex-col leading-none font-headline tracking-tighter">
                 <span className="text-xl text-white">APEX</span>
