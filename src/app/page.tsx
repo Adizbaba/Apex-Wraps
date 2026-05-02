@@ -1,4 +1,3 @@
-
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { Ticker } from "@/components/ticker";
@@ -13,7 +12,7 @@ import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { QuoteCalculator } from "@/components/quote-calculator";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
-import { WhatsAppButton } from "@/components/whatsapp-button";
+import { LiveSupport } from "@/components/live-support";
 
 export default function Home() {
   return (
@@ -32,7 +31,7 @@ export default function Home() {
       <Blog />
       <ContactSection />
       <Footer />
-      <WhatsAppButton />
+      <LiveSupport />
     </main>
   );
 }
