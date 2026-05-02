@@ -61,7 +61,7 @@ const leadNotificationFlow = ai.defineFlow(
     try {
       const { data, error } = await resend.emails.send({
         from: 'Apex Wraper Leads <onboarding@resend.dev>',
-        to: 'hello@apexwraps.com', // Recipient email address
+        to: 'info@apexwraper.com', // Recipient email address
         subject: `New Lead: ${input.name} - ${input.service}`,
         text: text,
       });

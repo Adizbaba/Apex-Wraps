@@ -89,7 +89,7 @@ export function ContactSection() {
                 <Mail className="w-5 h-5 text-orange mt-1" />
                 <div>
                   <h4 className="text-white font-bold text-sm">Email</h4>
-                  <p className="text-white/40 text-sm">hello@apexwraps.com</p>
+                  <p className="text-white/40 text-sm">info@apexwraper.com</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
