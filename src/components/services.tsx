@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Image from 'next/image';
 import {
@@ -114,7 +113,7 @@ export function Services() {
                 Ready for a <span className="text-orange">Transformation?</span>
               </h3>
               <p className="text-white/40 text-sm mb-8 max-w-xs relative z-10 group-hover:text-white/80 transition-colors">
-                Join thousands of satisfied clients who trust Apex Wraps with their most valuable assets.
+                Join thousands of satisfied clients who trust Apex Wraper with their most valuable assets.
               </p>
 
               <div className="grid grid-cols-2 gap-8 w-full border-t border-white/5 pt-8 mt-auto relative z-10">

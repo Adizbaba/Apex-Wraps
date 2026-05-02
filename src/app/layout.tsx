@@ -1,17 +1,16 @@
-
 import type { Metadata } from 'next';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Apex Wraps | Premium Car Customization Houston',
-  description: 'Apex Wraps provides world-class car wrapping, PPF, and commercial fleet branding in Houston, TX. Precision installation with 5-year warranty.',
+  title: 'Apex Wraper | Premium Car Customization Houston',
+  description: 'Apex Wraper provides world-class car wrapping, PPF, and commercial fleet branding in Houston, TX. Precision installation with 5-year warranty.',
   openGraph: {
-    title: 'Apex Wraps | Premium Vehicle Wrapping Studio',
+    title: 'Apex Wraper | Premium Vehicle Wrapping Studio',
     description: 'Transform your ride with precision installation and top-tier materials.',
     url: 'https://apex-wraps.com',
-    siteName: 'Apex Wraps',
+    siteName: 'Apex Wraper',
     images: [
       {
         url: 'https://picsum.photos/seed/1/1200/630',
@@ -41,7 +40,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "name": "Apex Wraps",
+              "name": "Apex Wraper",
               "image": "https://picsum.photos/seed/1/800/600",
               "@id": "",
               "url": "https://apex-wraps.com",

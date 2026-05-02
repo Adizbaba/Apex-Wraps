@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -55,7 +54,7 @@ export function Navbar() {
             {logo && (
               <Image 
                 src={logo.imageUrl}
-                alt="Apex Wraps"
+                alt="Apex Wraper"
                 fill
                 className="object-contain drop-shadow-[0_0_8px_rgba(255,77,0,0.3)] transition-transform group-hover:scale-110"
                 priority
@@ -64,7 +63,7 @@ export function Navbar() {
           </div>
           <div className="flex flex-col leading-none font-headline tracking-tighter">
             <span className="text-2xl text-white">APEX</span>
-            <span className="text-2xl text-orange">WRAPS</span>
+            <span className="text-2xl text-orange">WRAPER</span>
           </div>
         </Link>
 
@@ -109,7 +108,7 @@ export function Navbar() {
                           {logo && (
                             <Image 
                               src={logo.imageUrl}
-                              alt="Apex Wraps"
+                              alt="Apex Wraper"
                               fill
                               className="object-contain"
                             />
@@ -117,7 +116,7 @@ export function Navbar() {
                         </div>
                         <div className="flex flex-col leading-none font-headline tracking-tighter text-left">
                           <span className="text-lg text-white">APEX</span>
-                          <span className="text-lg text-orange">WRAPS</span>
+                          <span className="text-lg text-orange">WRAPER</span>
                         </div>
                       </div>
                     </SheetTitle>

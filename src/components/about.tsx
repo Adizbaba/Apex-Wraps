@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Image from 'next/image';
 import { SectionLabel } from '@/components/ui/section-label';
@@ -23,13 +22,13 @@ export function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div>
-            <SectionLabel>About ApexWraps</SectionLabel>
+            <SectionLabel>About ApexWraper</SectionLabel>
             <h2 className="text-4xl md:text-5xl font-subheading font-extrabold text-white mb-8 leading-tight">
               Shaping the Future of Vehicle Aesthetics with Precision & Passion
             </h2>
             <div className="space-y-6 text-white/60 mb-12">
               <p>
-                Founded on the principles of uncompromising quality and innovative design, Apex Wraps has emerged as the premier destination for automotive customization. Our team combines technical mastery with an artist's eye to deliver results that redefine vehicle identity.
+                Founded on the principles of uncompromising quality and innovative design, Apex Wraper has emerged as the premier destination for automotive customization. Our team combines technical mastery with an artist's eye to deliver results that redefine vehicle identity.
               </p>
               <p>
                 We don't just apply vinyl; we engineer transformations. Using only the highest grade materials from industry leaders like 3M, Avery Dennison, and Inozetek, we ensure every project meets our rigorous standards for excellence.

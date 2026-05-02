@@ -52,7 +52,7 @@ const leadNotificationFlow = ai.defineFlow(
       Service Requested: ${input.service}
       Customer Message: ${input.message}
       
-      Format it as a concise executive summary for the sales team at Apex Wraps.
+      Format it as a concise executive summary for the sales team at Apex Wraper.
     `;
 
     const { text } = await ai.generate(prompt);
@@ -60,7 +60,7 @@ const leadNotificationFlow = ai.defineFlow(
     // 2. Send the email via Resend
     try {
       const { data, error } = await resend.emails.send({
-        from: 'Apex Wraps Leads <onboarding@resend.dev>',
+        from: 'Apex Wraper Leads <onboarding@resend.dev>',
         to: 'hello@apexwraps.com', // Recipient email address
         subject: `New Lead: ${input.name} - ${input.service}`,
         text: text,

@@ -1,4 +1,4 @@
-# Apex Wraps
+# Apex Wraper
 
 Premium automotive customization studio specializing in precision vehicle wrapping, paint protection, and high-impact commercial branding.
 
@@ -38,7 +38,7 @@ To push this project to your GitHub repository `Apex-Wraps`, run the following c
 
 3. **Commit your changes**:
    ```bash
-   git commit -m "Initial commit of Apex Wraps project"
+   git commit -m "Initial commit of Apex Wraper project"
    ```
 
 4. **Add the remote repository**:

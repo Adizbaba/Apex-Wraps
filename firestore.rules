@@ -3,7 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * APEX WRAPS SECURITY RULES - PROTOTYPING MODE
+     * APEX WRAPER SECURITY RULES - PROTOTYPING MODE
      * 
      * Philosophy:
      * - This ruleset enforces strict authorization (who can do what) while maintaining 

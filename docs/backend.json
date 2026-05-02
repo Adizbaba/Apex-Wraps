@@ -4,7 +4,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Project",
       "type": "object",
-      "description": "Represents a car wrapping or customization project completed by Apex Wraps, showcasing its details, images, and associated services.",
+      "description": "Represents a car wrapping or customization project completed by Apex Wraper, showcasing its details, images, and associated services.",
       "properties": {
         "id": {
           "type": "string",
@@ -92,7 +92,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Service",
       "type": "object",
-      "description": "Defines a car wrapping or customization service offered by Apex Wraps, including its details, pricing, and process.",
+      "description": "Defines a car wrapping or customization service offered by Apex Wraper, including its details, pricing, and process.",
       "properties": {
         "id": {
           "type": "string",
@@ -150,7 +150,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "VehicleType",
       "type": "object",
-      "description": "Categorizes different types of vehicles that Apex Wraps services.",
+      "description": "Categorizes different types of vehicles that Apex Wraper services.",
       "properties": {
         "id": {
           "type": "string",
@@ -294,7 +294,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "NewsletterSubscriber",
       "type": "object",
-      "description": "Stores information about users who have subscribed to the Apex Wraps newsletter.",
+      "description": "Stores information about users who have subscribed to the Apex Wraper newsletter.",
       "properties": {
         "id": {
           "type": "string",
@@ -354,7 +354,7 @@
           "schema": {
             "$ref": "#/backend/entities/Service"
           },
-          "description": "Defines the types of wrapping services offered by Apex Wraps. Publicly accessible for displaying services and quote calculator options. Admin-only write access.",
+          "description": "Defines the types of wrapping services offered by Apex Wraper. Publicly accessible for displaying services and quote calculator options. Admin-only write access.",
           "params": [
             {
               "name": "serviceId",
@@ -444,6 +444,6 @@
         }
       }
     ],
-    "reasoning": "The Firestore structure is designed following the core principles of Authorization Independence, Structural Segregation, and DBAC to ensure a secure, scalable, and debuggable backend for Apex Wraps. \n\n**Authorization Independence & QAPs:**\nAll public-facing content (Projects, Services, Vehicle Types, Finish Types, Categories) is stored in top-level collections (`/projects`, `/services`, `/vehicleTypes`, `/finishTypes`, `/categories`). These collections are designed for public read access, allowing efficient `list` operations (QAPs) without requiring complex security rules that filter data based on user identity or other document attributes. This means any authenticated or unauthenticated user can read all documents in these collections, and Firestore rules will simply grant or deny access to the entire collection, not filter its contents. Since the data is public, there are no hierarchical authorization dependencies, directly supporting Authorization Independence.\n\n**Structural Segregation:**\nDifferent data types with distinct security postures are placed in separate, top-level collections:\n*   **Public Read, Admin Write:** `/projects`, `/services`, `/vehicleTypes`, `/finishTypes`, `/categories`. These collections hold static content intended for the website display and calculators. They are readable by everyone but can only be modified by authenticated administrators. This segregation simplifies rules by preventing mixed access patterns within a single collection.\n*   **Public Write, Admin Read:** `/leads`, `/newsletterSubscribers`. These collections are designed to capture user submissions from the contact form and newsletter subscription. Any user (even unauthenticated) can `create` documents in these collections. However, `read` access (including `list` and `get`) is strictly reserved for authenticated administrators. This ensures that sensitive lead data is not publicly exposed while still allowing anonymous submissions. This separation ensures `list` operations for admins retrieve all documents, without rule-based filtering, thus supporting QAPs for admin reads.\n*   **Admin Roles (DBAC):** Although not explicitly listed in `firestorePaths` due to schema constraints (no `Admin` entity schema provided), a critical `admins/{uid}` collection would be used. This collection would contain documents where the `uid` is that of an administrator. The *existence* of a document at `admins/{request.auth.uid}` would grant administrative privileges. This approach completely separates role management from data content, adhering to DBAC and Authorization Independence principles by avoiding `get()` calls on content documents to determine roles.\n\n**Denormalization:**\nFor this application, the primary authorization model is based on public access or a global 'admin' role. There are no nested collections where a child's authorization depends on a parent's specific `ownerId` or `members` map. Therefore, extensive denormalization of authorization fields *within data entities* is not required for the current scope, as the security posture is either global public or global admin-restricted based on the top-level collection. The `admins/{uid}` collection effectively denormalizes the 'admin' role status to a single, easily verifiable document lookup."
+    "reasoning": "The Firestore structure is designed following the core principles of Authorization Independence, Structural Segregation, and DBAC to ensure a secure, scalable, and debuggable backend for Apex Wraper. \n\n**Authorization Independence & QAPs:**\nAll public-facing content (Projects, Services, Vehicle Types, Finish Types, Categories) is stored in top-level collections (`/projects`, `/services`, `/vehicleTypes`, `/finishTypes`, `/categories`). These collections are designed for public read access, allowing efficient `list` operations (QAPs) without requiring complex security rules that filter data based on user identity or other document attributes. This means any authenticated or unauthenticated user can read all documents in these collections, and Firestore rules will simply grant or deny access to the entire collection, not filter its contents. Since the data is public, there are no hierarchical authorization dependencies, directly supporting Authorization Independence.\n\n**Structural Segregation:**\nDifferent data types with distinct security postures are placed in separate, top-level collections:\n*   **Public Read, Admin Write:** `/projects`, `/services`, `/vehicleTypes`, `/finishTypes`, `/categories`. These collections hold static content intended for the website display and calculators. They are readable by everyone but can only be modified by authenticated administrators. This segregation simplifies rules by preventing mixed access patterns within a single collection.\n*   **Public Write, Admin Read:** `/leads`, `/newsletterSubscribers`. These collections are designed to capture user submissions from the contact form and newsletter subscription. Any user (even unauthenticated) can `create` documents in these collections. However, `read` access (including `list` and `get`) is strictly reserved for authenticated administrators. This ensures that sensitive lead data is not publicly exposed while still allowing anonymous submissions. This separation ensures `list` operations for admins retrieve all documents, without rule-based filtering, thus supporting QAPs for admin reads.\n*   **Admin Roles (DBAC):** Although not explicitly listed in `firestorePaths` due to schema constraints (no `Admin` entity schema provided), a critical `admins/{uid}` collection would be used. This collection would contain documents where the `uid` is that of an administrator. The *existence* of a document at `admins/{request.auth.uid}` would grant administrative privileges. This approach completely separates role management from data content, adhering to DBAC and Authorization Independence principles by avoiding `get()` calls on content documents to determine roles.\n\n**Denormalization:**\nFor this application, the primary authorization model is based on public access or a global 'admin' role. There are no nested collections where a child's authorization depends on a parent's specific `ownerId` or `members` map. Therefore, extensive denormalization of authorization fields *within data entities* is not required for the current scope, as the security posture is either global public or global admin-restricted based on the top-level collection. The `admins/{uid}` collection effectively denormalizes the 'admin' role status to a single, easily verifiable document lookup."
   }
 }

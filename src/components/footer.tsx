@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -45,7 +44,7 @@ export function Footer() {
                 {logo && (
                   <Image 
                     src={logo.imageUrl}
-                    alt="Apex Wraps"
+                    alt="Apex Wraper"
                     fill
                     className="object-contain"
                   />
@@ -53,7 +52,7 @@ export function Footer() {
               </div>
               <div className="flex flex-col leading-none font-headline tracking-tighter">
                 <span className="text-xl text-white">APEX</span>
-                <span className="text-xl text-orange">WRAPS</span>
+                <span className="text-xl text-orange">WRAPER</span>
               </div>
             </Link>
             <p className="text-white/40 text-sm leading-relaxed">
@@ -114,7 +113,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-white/20 text-[10px] font-bold uppercase tracking-widest">
-            © 2025 ApexWraps Studio. All Rights Reserved.
+            © 2025 ApexWraper Studio. All Rights Reserved.
           </p>
           <div className="flex gap-8">
             {['Privacy Policy', 'Terms of Service'].map((item) => (
