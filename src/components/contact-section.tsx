@@ -1,63 +1,133 @@
+
 'use client';
 
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { useFirestore } from '@/firebase';
-import { collection } from 'firebase/firestore';
-import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { SectionLabel } from '@/components/ui/section-label';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
-import { notifyAdmin } from '@/ai/flows/lead-notification-flow';
-
-type FormData = {
-  name: string;
-  email: string;
-  phone: string;
-  vehicleType: string;
-  service: string;
-  message: string;
-};
+import { Phone, Mail, MapPin, Clock, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from '@/lib/emailjs';
 
 export function ContactSection() {
   const { toast } = useToast();
   const firestore = useFirestore();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { register, handleSubmit, reset } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    setIsSubmitting(true);
-    const leadsRef = collection(firestore, 'leads');
+  // Form Field States
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [vehicleType, setVehicleType] = useState('Car');
+  const [serviceType, setServiceType] = useState('Full Wrap');
+  const [message, setMessage] = useState('');
+  const [website, setWebsite] = useState(''); // Honeypot
+
+  // UI States
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [cooldown, setCooldown] = useState(false);
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
-    // 1. Save to Firestore (Non-blocking)
-    addDocumentNonBlocking(leadsRef, {
-      ...data,
-      status: 'New',
-      createdAt: new Date().toISOString()
-    }).then(async () => {
-      // 2. Trigger Admin Notification Flow (Email via Resend)
-      try {
-        const result = await notifyAdmin(data);
-        if (!result.success) {
-          console.error('Email notification failed:', result.status);
-        }
-      } catch (error) {
-        console.error('Failed to trigger lead notification flow:', error);
-      }
+    if (fullName.length < 2) newErrors.fullName = "Full name must be at least 2 characters";
+    if (!emailRegex.test(email)) newErrors.email = "Please enter a valid email address";
+    if (phone.replace(/\D/g, '').length < 10) newErrors.phone = "Phone number must be at least 10 digits";
+    if (message.length < 10) newErrors.message = "Message must be at least 10 characters";
 
-      toast({
-        title: "Quote Requested!",
-        description: "Our team will contact you within 24 hours.",
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Spam Protection
+    if (website) return; // Silently reject bots
+    if (cooldown) return;
+
+    // Validation
+    if (!validate()) return;
+
+    setIsLoading(true);
+    setIsError(false);
+    setIsSuccess(false);
+
+    try {
+      // 1. Send Email via EmailJS
+      const templateParams = {
+        from_name: fullName,
+        from_email: email,
+        phone: phone,
+        vehicle_type: vehicleType,
+        service_type: serviceType,
+        message: message,
+        to_email: "your@gmail.com",
+        reply_to: email
+      };
+
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+
+      // 2. Save to Firestore simultaneously
+      const leadsRef = collection(firestore, 'leads');
+      await addDoc(leadsRef, {
+        fullName,
+        email,
+        phone,
+        vehicleType,
+        serviceType,
+        message,
+        submittedAt: serverTimestamp(),
+        status: "new",
+        source: "website-contact-form"
       });
-      reset();
-      setIsSubmitting(false);
-    }).catch((err) => {
-      console.error('Firestore save failed:', err);
-      setIsSubmitting(false);
-    });
+
+      // Handle Success
+      setIsSuccess(true);
+      toast({
+        className: "bg-[#22C55E] text-white border-none",
+        title: "✓ Quote request sent!",
+        description: "We'll contact you within 24 hours.",
+        duration: 5000,
+      });
+
+      // Reset Form
+      setFullName('');
+      setEmail('');
+      setPhone('');
+      setVehicleType('Car');
+      setServiceType('Full Wrap');
+      setMessage('');
+      
+      // Start Cooldown
+      setCooldown(true);
+      setTimeout(() => setCooldown(false), 3000);
+
+    } catch (error) {
+      console.error('Submission failed:', error);
+      setIsError(true);
+      toast({
+        variant: "destructive",
+        className: "bg-[#CC0000] text-white border-none",
+        title: "✗ Something went wrong.",
+        description: "Please call us directly at (713) 555-0192",
+        duration: 6000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -123,52 +193,115 @@ export function ContactSection() {
 
           {/* Right: Form */}
           <div className="bg-black border border-white/5 p-8 md:p-12 chamfer-clip shadow-2xl">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot */}
+              <input 
+                type="text" 
+                name="website" 
+                style={{ display: 'none' }} 
+                tabIndex={-1} 
+                autoComplete="off" 
+                onChange={(e) => setWebsite(e.target.value)} 
+                value={website} 
+              />
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Full Name</label>
-                  <Input {...register('name', { required: true })} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="First & Last Name" />
+                  <Input 
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    style={{ borderColor: errors.fullName ? '#CC0000' : '' }}
+                    className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" 
+                    placeholder="First & Last Name" 
+                  />
+                  {errors.fullName && <p className="text-[#CC0000] text-[10px] font-bold uppercase tracking-wider">{errors.fullName}</p>}
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Email Address</label>
-                  <Input {...register('email', { required: true })} type="email" className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="Email@example.com" />
+                  <Input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={{ borderColor: errors.email ? '#CC0000' : '' }}
+                    className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" 
+                    placeholder="Email@example.com" 
+                  />
+                  {errors.email && <p className="text-[#CC0000] text-[10px] font-bold uppercase tracking-wider">{errors.email}</p>}
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Phone Number</label>
-                  <Input {...register('phone', { required: true })} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" placeholder="(xxx) xxx xxxx" />
+                  <Input 
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    style={{ borderColor: errors.phone ? '#CC0000' : '' }}
+                    className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange" 
+                    placeholder="(xxx) xxx xxxx" 
+                  />
+                  {errors.phone && <p className="text-[#CC0000] text-[10px] font-bold uppercase tracking-wider">{errors.phone}</p>}
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Vehicle Type</label>
-                  <select {...register('vehicleType')} className="flex h-10 w-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange">
-                    <option value="car">Car</option>
-                    <option value="suv">SUV</option>
-                    <option value="truck">Truck</option>
-                    <option value="van">Van</option>
-                    <option value="fleet">Fleet</option>
+                  <select 
+                    value={vehicleType}
+                    onChange={(e) => setVehicleType(e.target.value)}
+                    className="flex h-10 w-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange"
+                  >
+                    <option value="Car">Car</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Truck">Truck</option>
+                    <option value="Van">Van</option>
+                    <option value="Fleet">Fleet</option>
                   </select>
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Service Interested In</label>
-                <select {...register('service')} className="flex h-10 w-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange">
-                  <option value="full-wrap">Full Wrap</option>
-                  <option value="ppf">Paint Protection Film</option>
-                  <option value="fleet">Fleet Branding</option>
-                  <option value="custom">Custom Graphics</option>
+                <select 
+                  value={serviceType}
+                  onChange={(e) => setServiceType(e.target.value)}
+                  className="flex h-10 w-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange"
+                >
+                  <option value="Full Wrap">Full Wrap</option>
+                  <option value="Partial Wrap">Partial Wrap</option>
+                  <option value="Color Change">Color Change</option>
+                  <option value="PPF">Paint Protection Film (PPF)</option>
+                  <option value="Fleet Branding">Fleet Branding</option>
+                  <option value="Custom Graphics">Custom Graphics</option>
+                  <option value="Ceramic Coating">Ceramic Coating</option>
                 </select>
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Your Message</label>
-                <Textarea {...register('message')} className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange min-h-[120px]" placeholder="Tell us about your vision..." />
+                <Textarea 
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  style={{ borderColor: errors.message ? '#CC0000' : '' }}
+                  className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange min-h-[120px]" 
+                  placeholder="Tell us about your vision..." 
+                />
+                {errors.message && <p className="text-[#CC0000] text-[10px] font-bold uppercase tracking-wider">{errors.message}</p>}
               </div>
 
-              <Button type="submit" disabled={isSubmitting} className="w-full" size="lg">
-                {isSubmitting ? 'Sending...' : 'Request a Free Quote →'}
+              <Button 
+                type="submit" 
+                disabled={isLoading || cooldown} 
+                variant="primary"
+                size="lg"
+                className={`w-full ${isLoading ? 'opacity-80 cursor-not-allowed' : ''}`}
+              >
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    SENDING... <Loader2 className="w-4 h-4 animate-spin" />
+                  </span>
+                ) : (
+                  'REQUEST A FREE QUOTE →'
+                )}
               </Button>
             </form>
           </div>
