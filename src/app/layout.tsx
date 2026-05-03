@@ -5,8 +5,13 @@ import { Toaster } from '@/components/ui/toaster';
 import TawkChat from '@/components/TawkChat';
 
 export const metadata: Metadata = {
-  title: 'Apex Wraper | Premium Car Customization Houston',
+  title: "APEX WRAPER — #1 Premium Vehicle Wrapping",
   description: 'Apex Wraper provides world-class car wrapping, PPF, and commercial fleet branding in Houston, TX. Precision installation with 5-year warranty.',
+  icons: {
+    icon: "https://res.cloudinary.com/dse63uv5p/image/upload/v1777511848/AW_uonfks.png",
+    apple: "https://res.cloudinary.com/dse63uv5p/image/upload/v1777511848/AW_uonfks.png",
+    shortcut: "https://res.cloudinary.com/dse63uv5p/image/upload/v1777511848/AW_uonfks.png",
+  },
   openGraph: {
     title: 'Apex Wraper | Premium Vehicle Wrapping Studio',
     description: 'Transform your ride with precision installation and top-tier materials.',
