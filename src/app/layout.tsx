@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { WhatsAppButton } from '@/components/whatsapp-button';
+import TawkChat from '@/components/TawkChat';
 
 export const metadata: Metadata = {
   title: 'Apex Wraper | Premium Car Customization Houston',
@@ -75,6 +77,8 @@ export default function RootLayout({
         <FirebaseClientProvider>
           {children}
           <Toaster />
+          <WhatsAppButton />
+          <TawkChat />
         </FirebaseClientProvider>
       </body>
     </html>

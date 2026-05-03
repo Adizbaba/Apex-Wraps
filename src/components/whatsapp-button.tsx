@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -11,7 +10,8 @@ import React, { useState, useRef, useEffect } from 'react';
  * - Draggable/Moveable functionality for user preference
  */
 export function WhatsAppButton() {
-  const [position, setPosition] = useState({ x: 20, y: 20 });
+  // Adjusted default position to 24px offset to sit nicely at the bottom
+  const [position, setPosition] = useState({ x: 24, y: 24 });
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef({ startX: 0, startY: 0, initialX: 0, initialY: 0 });
 
