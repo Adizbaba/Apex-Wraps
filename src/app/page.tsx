@@ -12,7 +12,6 @@ import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { QuoteCalculator } from "@/components/quote-calculator";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
-import { LiveSupport } from "@/components/live-support";
 
 export default function Home() {
   return (
@@ -31,7 +30,6 @@ export default function Home() {
       <Blog />
       <ContactSection />
       <Footer />
-      <LiveSupport />
     </main>
   );
 }

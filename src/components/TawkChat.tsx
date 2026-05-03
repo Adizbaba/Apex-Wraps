@@ -14,19 +14,18 @@ export default function TawkChat() {
     window.Tawk_API = window.Tawk_API || {};
     window.Tawk_LoadStart = new Date();
 
-    // Position the Tawk.to bubble ABOVE the WhatsApp button (which sits at 24px)
-    // 90px offset ensures a clean vertical stack
+    // Reset Tawk.to to the primary bottom-right position (24px offset)
     window.Tawk_API.customStyle = {
       visibility: {
         desktop: {
           position: 'br', // bottom right
           xOffset: 24,
-          yOffset: 90
+          yOffset: 24
         },
         mobile: {
           position: 'br',
           xOffset: 20,
-          yOffset: 90
+          yOffset: 20
         }
       }
     };

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -69,7 +68,7 @@ export function ContactSection() {
         vehicle_type: vehicleType,
         service_type: serviceType,
         message: message,
-        to_email: "your@gmail.com",
+        to_email: "info@apexwraper.com",
         reply_to: email
       };
 
@@ -122,7 +121,7 @@ export function ContactSection() {
         variant: "destructive",
         className: "bg-[#CC0000] text-white border-none",
         title: "✗ Something went wrong.",
-        description: "Please call us directly at (713) 555-0192",
+        description: "Please call us directly at 571 632 7734",
         duration: 6000,
       });
     } finally {
@@ -282,7 +281,7 @@ export function ContactSection() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   style={{ borderColor: errors.message ? '#CC0000' : '' }}
-                  className="bg-white/5 border-white/10 text-white rounded-none focus:border-orange min-h-[120px]" 
+                  className="bg-white/5 border-white/10 text-white rounded-none focus-visible:ring-2 focus-visible:ring-orange min-h-[120px]" 
                   placeholder="Tell us about your vision..." 
                 />
                 {errors.message && <p className="text-[#CC0000] text-[10px] font-bold uppercase tracking-wider">{errors.message}</p>}
